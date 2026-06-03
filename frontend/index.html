@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentMood - AI Fitness Coach</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/chat.css" />
+  <link rel="stylesheet" href="/static/reminder-cards.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-content">
+        <div class="logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+            <path d="M16 8L20 12L16 16L12 12L16 8Z" fill="white"/>
+            <path d="M16 16L20 20L16 24L12 20L16 16Z" fill="white" opacity="0.7"/>
+            <defs>
+              <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                <stop stop-color="#10b981"/>
+                <stop offset="1" stop-color="#059669"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>AgentMood</span>
+        </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#benefits">Benefits</a>
+          <button class="btn-primary" onclick="document.getElementById('chatToggleBtn').click()">Try Chat Assistant</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="badge">AI-Powered Fitness Coaching</div>
+          <h1>Your Personal Wellness Coach, Available 24/7</h1>
+          <p class="hero-description">Track your fitness journey with intelligent AI coaching. Get personalized insights on energy, mood, sleep, and recovery to optimize your workouts and overall wellness.</p>
+          <div class="hero-buttons">
+            <button class="btn-large btn-primary" onclick="document.getElementById('chatToggleBtn').click()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+              </svg>
+              Start Chatting Now
+            </button>
+            <button class="btn-large btn-secondary" onclick="document.getElementById('how-it-works').scrollIntoView({behavior: 'smooth'})">Learn More</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <div class="stat-number">24/7</div>
+              <div class="stat-label">Available</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">AI</div>
+              <div class="stat-label">Powered</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Personalized</div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-card">
+            <div class="card-header">
+              <div class="card-icon">💪</div>
+              <div>
+                <div class="card-title">Today's Check-in</div>
+                <div class="card-subtitle">Morning Session</div>
+              </div>
+            </div>
+            <div class="card-metrics">
+              <div class="metric">
+                <span class="metric-label">Energy</span>
+                <div class="metric-bar">
+                  <div class="metric-fill" style="width: 85%"></div>
+                </div>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Mood</span>
+                <div class="metric-bar">
+                  <div class="metric-fill" style="width: 90%"></div>
+                </div>
+              </div>
+              <div class="metric">
+                <span class="metric-label">Recovery</span>
+                <div class="metric-bar">
+                  <div class="metric-fill" style="width: 70%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-showcase" id="dashboard">
+    <div class="container">
+      <div class="dashboard-shell">
+        <div class="dashboard-hero">
+          <div>
+            <div class="badge">Daily Dashboard</div>
+            <h2>Your day at a glance</h2>
+            <p>See everything you logged today without opening the chat, and get weekly suggestions drawn from the activity library already built into AgentMood.</p>
+          </div>
+          <button class="btn-secondary dashboard-refresh-btn" id="dashboardRefreshBtn">Refresh Dashboard</button>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="dashboard-panel dashboard-panel-main">
+            <div class="dashboard-panel-head">
+              <div>
+                <p class="dashboard-eyebrow">Logged Today</p>
+                <h3>Today's wellness board</h3>
+              </div>
+              <p class="dashboard-status" id="dashboardStatus">Loading live data...</p>
+            </div>
+
+            <div class="dashboard-stats" id="dashboardStats"></div>
+
+            <div class="dashboard-feed-wrap">
+              <div class="dashboard-subhead">
+                <div>
+                  <h4>Today timeline</h4>
+                  <p>Everything you logged through the day appears here.</p>
+                </div>
+              </div>
+              <div class="dashboard-feed" id="dashboardTodayLogs"></div>
+            </div>
+          </section>
+
+          <aside class="dashboard-panel dashboard-panel-side">
+            <div class="dashboard-subhead">
+              <h4>Weekly suggestions</h4>
+              <p>Generated from your recent week and matched with the system library.</p>
+            </div>
+            <div class="dashboard-weekly-card" id="dashboardWeeklySnapshot"></div>
+            <div class="dashboard-suggestions" id="dashboardSuggestions"></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header">
+        <h2>Everything You Need for Optimal Wellness</h2>
+        <p>Comprehensive fitness tracking powered by conversational AI</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3>Smart Mood Tracking</h3>
+          <p>Log your daily mood, energy levels, and stress through natural conversation with our AI coach.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💤</div>
+          <h3>Sleep Analysis</h3>
+          <p>Track sleep quality and get personalized recommendations to improve your recovery and performance.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Energy Monitoring</h3>
+          <p>Understand your energy patterns and optimize workout timing for maximum effectiveness.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏋️</div>
+          <h3>Workout Readiness</h3>
+          <p>Get AI-powered insights on whether you're ready to push hard or need active recovery.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Progress Insights</h3>
+          <p>Visualize your wellness journey with intelligent analytics and trend identification.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>24/7 AI Coach</h3>
+          <p>Chat anytime with your personal AI fitness coach for guidance, motivation, and support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <h2>How AgentMood Works</h2>
+        <p>Simple, conversational, and effective</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Open the Chat</h3>
+            <p>Click the chat button to start a conversation with your AI fitness coach anytime, anywhere.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Share How You Feel</h3>
+            <p>Tell the AI about your energy, mood, sleep quality, or any fitness concerns in natural language.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Get Personalized Insights</h3>
+            <p>Receive tailored recommendations, workout suggestions, and recovery tips based on your current state.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Track Your Progress</h3>
+            <p>Build a comprehensive wellness profile over time and watch your fitness journey unfold.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section id="benefits" class="benefits">
+    <div class="container">
+      <div class="benefits-content">
+        <div class="benefits-text">
+          <h2>Why Choose AgentMood?</h2>
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <div class="benefit-icon">✓</div>
+              <div>
+                <h4>Conversational Interface</h4>
+                <p>No complex forms or tracking sheets. Just chat naturally about how you feel.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">✓</div>
+              <div>
+                <h4>AI-Powered Intelligence</h4>
+                <p>Advanced algorithms understand context and provide personalized coaching.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">✓</div>
+              <div>
+                <h4>Holistic Approach</h4>
+                <p>Track not just workouts, but mood, energy, sleep, and overall wellness.</p>
+              </div>
+            </div>
+            <div class="benefit-item">
+              <div class="benefit-icon">✓</div>
+              <div>
+                <h4>Always Available</h4>
+                <p>Your AI coach is ready whenever you need guidance or want to check in.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="benefits-visual">
+          <div class="visual-card">
+            <div class="chat-preview">
+              <div class="chat-message bot">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">How are you feeling today? Ready for your workout?</div>
+              </div>
+              <div class="chat-message user">
+                <div class="chat-bubble">I slept well but feeling a bit sore from yesterday</div>
+                <div class="chat-avatar">👤</div>
+              </div>
+              <div class="chat-message bot">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">Great sleep! Since you're sore, I'd recommend active recovery today. Light cardio or stretching would be perfect.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Transform Your Fitness Journey?</h2>
+        <p>Start chatting with your AI fitness coach today and experience personalized wellness coaching.</p>
+        <button class="btn-large btn-white" onclick="document.getElementById('chatToggleBtn').click()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+          </svg>
+          Start Your Free Chat
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <rect width="32" height="32" rx="8" fill="url(#gradient2)"/>
+              <path d="M16 8L20 12L16 16L12 12L16 8Z" fill="white"/>
+              <path d="M16 16L20 20L16 24L12 20L16 16Z" fill="white" opacity="0.7"/>
+              <defs>
+                <linearGradient id="gradient2" x1="0" y1="0" x2="32" y2="32">
+                  <stop stop-color="#10b981"/>
+                  <stop offset="1" stop-color="#059669"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span>AgentMood</span>
+          </div>
+          <p>Your AI-powered fitness companion for optimal wellness.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Product</h4>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#benefits">Benefits</a>
+          </div>
+          <div class="footer-column">
+            <h4>Company</h4>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 AgentMood. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Chat Button -->
+  <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="Open chat">
+    <svg class="chat-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+    </svg>
+    <svg class="close-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-container">
+      <header class="chat-header">
+        <div class="chat-heading">
+          <h2>FitCoach Assistant</h2>
+          <p class="header-copy">Your daily wellness companion</p>
+        </div>
+        <div class="header-side">
+          <div class="status-pill" id="statusPill">
+            <span class="status-dot"></span>
+            <span>Connected</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="chat-board" id="chatWindow">
+        <div class="day-marker">Today</div>
+        <div class="message assistant message-enter">
+          <div class="avatar assistant-avatar">A</div>
+          <div class="message-stack">
+            <div class="message-meta">
+              <p class="message-name">FitCoach Assistant</p>
+            </div>
+            <div class="bubble assistant-bubble">
+              <p>Welcome back! Tell me how your body and mind feel today, and I'll help you log it like a supportive fitness coach.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="composer-area">
+        <!-- Quick Action Shortcuts - Inline -->
+        <div class="shortcuts-inline">
+          <span class="shortcuts-label">QUICK LOG:</span>
+          <button class="shortcut-btn-inline" id="logMoodBtn">
+            <span class="shortcut-icon">😊</span>
+            <span class="shortcut-text">Mood</span>
+          </button>
+          <button class="shortcut-btn-inline" data-shortcut="Log water intake">
+            <span class="shortcut-icon">💧</span>
+            <span class="shortcut-text">Water</span>
+          </button>
+          <button class="shortcut-btn-inline" data-shortcut="Log sleep">
+            <span class="shortcut-icon">😴</span>
+            <span class="shortcut-text">Sleep</span>
+          </button>
+          <button class="shortcut-btn-inline shortcut-activity" id="logActivityBtn">
+            <span class="shortcut-icon">🏃</span>
+            <span class="shortcut-text">Activity</span>
+          </button>
+        </div>
+        
+        <div class="composer-meta">
+          <span>Press Enter to send</span>
+          <span>Shift + Enter for new line</span>
+        </div>
+        <div class="composer-wrapper">
+          <form class="composer" id="chatForm">
+            <label class="composer-input-wrap">
+              <span class="sr-only">Type your message</span>
+              <textarea id="messageInput" rows="1" placeholder="How are you feeling today?"></textarea>
+            </label>
+            <button type="submit" class="send-button" id="sendButton">
+              <span>Send</span>
+            </button>
+          </form>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/static/chat.js"></script>
+</body>
+</html>

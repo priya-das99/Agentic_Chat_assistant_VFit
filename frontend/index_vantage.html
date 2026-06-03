@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vantage Circle - Your Wellness Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/vantage-theme.css" />
+  <link rel="stylesheet" href="/static/reminder-cards.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-content">
+        <div class="logo">
+          <img src="/static/vantage-logo.png" alt="Vantage Circle" width="32" height="32" style="object-fit: contain;" />
+          <span style="font-weight: 700; letter-spacing: 0.02em;"><span style="font-weight: 800;">VANTAGE</span>CIRCLE</span>
+        </div>
+        <div class="nav-links">
+          <a href="#dashboard">Dashboard</a>
+          <a href="#activity">My Activity</a>
+          <a href="#challenges">Challenges</a>
+          <button class="btn-primary" onclick="openChat()">Start Chat</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="badge">AI-Powered Wellness Tracking</div>
+          <h1>Your Wellness Journey Starts Here</h1>
+          <p class="hero-description">Track your fitness, mood, and wellness with AI-powered insights. Join the circle of health and happiness with personalized coaching available 24/7.</p>
+          <div class="hero-buttons">
+            <button class="btn-large btn-primary" onclick="openChat()">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+              </svg>
+              Start Chatting Now
+            </button>
+            <button class="btn-large btn-secondary" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'})">View Dashboard</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <!-- Action Cards -->
+          <div class="action-cards">
+            <div class="action-card coral" onclick="logActivity()">
+              <span class="action-card-icon">🏃</span>
+              <div class="action-card-title">Log Activity</div>
+              <div class="action-card-subtitle">Track your workout</div>
+            </div>
+            <div class="action-card blue" onclick="logWater()">
+              <span class="action-card-icon">💧</span>
+              <div class="action-card-title">Log Water Intake</div>
+              <div class="action-card-subtitle">Stay hydrated</div>
+            </div>
+            <div class="action-card yellow" onclick="logMood()">
+              <span class="action-card-icon">😊</span>
+              <div class="action-card-title">Track Mood</div>
+              <div class="action-card-subtitle">How are you feeling?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section class="dashboard-showcase" id="dashboard">
+    <div class="container">
+      <div class="dashboard-shell">
+        <div class="dashboard-hero">
+          <div>
+            <div class="badge">Daily Dashboard</div>
+            <h2>Your day at a glance</h2>
+            <p>See everything you logged today and get personalized suggestions based on your activity.</p>
+          </div>
+          <button class="btn-secondary dashboard-refresh-btn" id="dashboardRefreshBtn">Refresh Dashboard</button>
+        </div>
+
+        <div class="dashboard-grid">
+          <section class="dashboard-panel dashboard-panel-main">
+            <div class="dashboard-panel-head">
+              <div>
+                <p class="dashboard-eyebrow">Logged Today</p>
+                <h3>Today's wellness board</h3>
+              </div>
+              <p class="dashboard-status" id="dashboardStatus">Loading live data...</p>
+            </div>
+
+            <div class="dashboard-stats" id="dashboardStats">
+              <!-- Stats will be loaded here -->
+            </div>
+
+            <div class="dashboard-feed-wrap">
+              <div class="dashboard-subhead">
+                <div>
+                  <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">Today timeline</h4>
+                  <p style="font-size: 0.9rem; color: var(--text-secondary);">Everything you logged through the day appears here.</p>
+                </div>
+              </div>
+              <div class="dashboard-feed" id="dashboardTodayLogs">
+                <!-- Timeline will be loaded here -->
+              </div>
+            </div>
+          </section>
+
+          <aside class="dashboard-panel dashboard-panel-side">
+            <div class="dashboard-subhead" style="margin-bottom: 20px;">
+              <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">Weekly snapshot</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Your activity summary for this week.</p>
+            </div>
+            <div class="dashboard-weekly-card" id="dashboardWeeklySnapshot" style="background: white; border-radius: 12px; padding: 20px; margin-bottom: 24px; box-shadow: var(--shadow-sm);">
+              <!-- Weekly snapshot will be loaded here -->
+            </div>
+            <div class="dashboard-subhead" style="margin-bottom: 16px;">
+              <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 8px;">Suggestions</h4>
+              <p style="font-size: 0.85rem; color: var(--text-secondary);">Personalized recommendations for you.</p>
+            </div>
+            <div class="dashboard-suggestions" id="dashboardSuggestions">
+              <!-- Suggestions will be loaded here -->
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" style="padding: 80px 0; background: white;">
+    <div class="container">
+      <div style="text-align: center; max-width: 700px; margin: 0 auto 60px;">
+        <div class="badge">Features</div>
+        <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 16px;">Everything You Need for Optimal Wellness</h2>
+        <p style="font-size: 1.1rem; color: var(--text-secondary);">Comprehensive fitness tracking powered by conversational AI</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+        <div style="background: var(--bg-light); padding: 32px; border-radius: 16px; border: 1px solid var(--border-light);">
+          <div style="font-size: 3rem; margin-bottom: 16px;">🎯</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px;">Smart Mood Tracking</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Log your daily mood, energy levels, and stress through natural conversation with our AI coach.</p>
+        </div>
+        <div style="background: var(--bg-light); padding: 32px; border-radius: 16px; border: 1px solid var(--border-light);">
+          <div style="font-size: 3rem; margin-bottom: 16px;">💤</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px;">Sleep Analysis</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Track sleep quality and get personalized recommendations to improve your recovery.</p>
+        </div>
+        <div style="background: var(--bg-light); padding: 32px; border-radius: 16px; border: 1px solid var(--border-light);">
+          <div style="font-size: 3rem; margin-bottom: 16px;">⚡</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px;">Energy Monitoring</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Understand your energy patterns and optimize workout timing for maximum effectiveness.</p>
+        </div>
+        <div style="background: var(--bg-light); padding: 32px; border-radius: 16px; border: 1px solid var(--border-light);">
+          <div style="font-size: 3rem; margin-bottom: 16px;">🏋️</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px;">Workout Readiness</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Get AI-powered insights on whether you're ready to push hard or need active recovery.</p>
+        </div>
+        <div style="background: var(--bg-light); padding: 32px; border-radius: 16px; border: 1px solid var(--border-light);">
+          <div style="font-size: 3rem; margin-bottom: 16px;">📊</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px;">Progress Insights</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Visualize your wellness journey with intelligent analytics and trend identification.</p>
+        </div>
+        <div style="background: var(--bg-light); padding: 32px; border-radius: 16px; border: 1px solid var(--border-light);">
+          <div style="font-size: 3rem; margin-bottom: 16px;">💬</div>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 12px;">24/7 AI Coach</h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">Chat anytime with your personal AI fitness coach for guidance and support.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: var(--text-primary); color: white; padding: 60px 0 30px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 40px;">
+        <div>
+          <div class="logo" style="color: white; margin-bottom: 16px;">
+            <img src="/static/vantage-logo.png" alt="Vantage Circle" width="32" height="32" style="object-fit: contain; filter: brightness(0) invert(1);" />
+            <span style="font-weight: 700; letter-spacing: 0.02em;"><span style="font-weight: 800;">VANTAGE</span>CIRCLE</span>
+          </div>
+          <p style="color: rgba(255,255,255,0.7); line-height: 1.7;">Your AI-powered wellness companion for a healthier, happier you.</p>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 16px;">Product</h4>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="#features" style="color: rgba(255,255,255,0.7); text-decoration: none;">Features</a>
+            <a href="#dashboard" style="color: rgba(255,255,255,0.7); text-decoration: none;">Dashboard</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 16px;">Company</h4>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">About Us</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Contact</a>
+            <a href="#" style="color: rgba(255,255,255,0.7); text-decoration: none;">Privacy</a>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+        <p>&copy; 2024 Vantage Circle. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Chat Button -->
+  <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="Open chat">
+    <svg class="chat-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28">
+      <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+    </svg>
+    <svg class="close-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="28" height="28" style="display: none;">
+      <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-container">
+      <header class="chat-header">
+        <div class="chat-heading">
+          <h2>Vantage Circle Coach</h2>
+          <p class="header-copy">Your daily wellness companion</p>
+        </div>
+      </header>
+
+      <section class="chat-board" id="chatWindow">
+        <div style="text-align: center; margin: 0 auto 16px; padding: 6px 14px; background: rgba(139, 127, 216, 0.1); border-radius: 50px; font-size: 0.7rem; font-weight: 700; color: var(--primary-purple-dark); text-transform: uppercase; letter-spacing: 0.08em; width: fit-content;">Today</div>
+        <div class="message assistant">
+          <div class="avatar assistant-avatar">A</div>
+          <div class="message-stack">
+            <div class="bubble assistant-bubble">
+              <p>Welcome! Tell me how your body and mind feel today, and I'll help you log it like a supportive fitness coach.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="composer-area">
+        <!-- Quick Action Shortcuts -->
+        <div class="shortcuts-inline">
+          <button class="shortcut-btn-inline" onclick="logMood()">
+            <span class="shortcut-icon">😊</span>
+            <span class="shortcut-text">Mood</span>
+          </button>
+          <button class="shortcut-btn-inline" onclick="logWater()">
+            <span class="shortcut-icon">💧</span>
+            <span class="shortcut-text">Water</span>
+          </button>
+          <button class="shortcut-btn-inline" onclick="sendMessage('Log sleep')">
+            <span class="shortcut-icon">😴</span>
+            <span class="shortcut-text">Sleep</span>
+          </button>
+          <button class="shortcut-btn-inline shortcut-activity" onclick="logActivity()">
+            <span class="shortcut-icon">🏃</span>
+            <span class="shortcut-text">Activity</span>
+          </button>
+        </div>
+        
+        <div class="composer">
+          <form id="chatForm" style="display: flex; gap: 12px; width: 100%;">
+            <textarea id="messageInput" rows="1" placeholder="How are you feeling today?" style="flex: 1;"></textarea>
+            <button type="submit" class="send-button" id="sendButton">
+              <span>Send</span>
+            </button>
+          </form>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="/static/chat.js"></script>
+  <script>
+    // Helper functions for quick actions
+    function openChat() {
+      document.getElementById('chatToggleBtn').click();
+    }
+    
+    function logActivity() {
+      openChat();
+      setTimeout(() => {
+        document.getElementById('logActivityBtn')?.click();
+      }, 300);
+    }
+    
+    function logMood() {
+      openChat();
+      setTimeout(() => {
+        document.getElementById('logMoodBtn')?.click();
+      }, 300);
+    }
+    
+    function logWater() {
+      openChat();
+      setTimeout(() => {
+        sendMessage('Log water intake');
+      }, 300);
+    }
+    
+    function sendMessage(text) {
+      const input = document.getElementById('messageInput');
+      if (input) {
+        input.value = text;
+        document.getElementById('chatForm').dispatchEvent(new Event('submit'));
+      }
+    }
+  </script>
+</body>
+</html>

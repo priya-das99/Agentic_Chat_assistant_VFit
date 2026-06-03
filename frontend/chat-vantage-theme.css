@@ -1,0 +1,260 @@
+/* Vantage Theme Override for Chat Interface */
+:root {
+  --primary: #7C6FD8;
+  --primary-dark: #6B5FC8;
+  --primary-light: #E8E5FF;
+}
+
+/* Chat Toggle Button */
+.chat-toggle-btn {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8, #5B4FB8);
+  box-shadow: 0 12px 40px rgba(124, 111, 216, 0.5), 0 0 0 0 rgba(124, 111, 216, 0.4);
+}
+
+@keyframes pulse-ring {
+  0%, 100% {
+    box-shadow: 0 12px 40px rgba(124, 111, 216, 0.5), 0 0 0 0 rgba(124, 111, 216, 0.4);
+  }
+  50% {
+    box-shadow: 0 12px 40px rgba(124, 111, 216, 0.5), 0 0 0 12px rgba(124, 111, 216, 0);
+  }
+}
+
+.chat-toggle-btn:hover {
+  box-shadow: 0 16px 56px rgba(124, 111, 216, 0.6);
+}
+
+/* Chat Widget Border */
+.chat-widget {
+  border: 2px solid rgba(124, 111, 216, 0.15);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(124, 111, 216, 0.1);
+}
+
+/* Chat Header */
+.chat-header {
+  background: linear-gradient(135deg, #E8E5FF 0%, #D4CFFF 50%, #C0B9FF 100%);
+  border-bottom: 1px solid rgba(124, 111, 216, 0.12);
+}
+
+.chat-header::before {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+}
+
+.header-copy {
+  color: #5B4FB8;
+}
+
+.status-pill {
+  color: #6B5FC8;
+  border: 1px solid rgba(124, 111, 216, 0.2);
+  box-shadow: 0 4px 12px rgba(124, 111, 216, 0.2);
+}
+
+.status-dot {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8);
+  box-shadow: 0 0 0 0 rgba(124, 111, 216, 0.7);
+}
+
+@keyframes pulse-dot {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(124, 111, 216, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 6px rgba(124, 111, 216, 0);
+  }
+}
+
+/* Day Marker */
+.day-marker {
+  color: #6B5FC8;
+  border: 1px solid rgba(124, 111, 216, 0.1);
+}
+
+/* Assistant Avatar */
+.assistant-avatar {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8, #5B4FB8);
+  box-shadow: 0 8px 24px rgba(124, 111, 216, 0.4);
+}
+
+/* Assistant Bubble */
+.assistant-bubble {
+  border: 1px solid rgba(124, 111, 216, 0.15);
+}
+
+/* User Bubble */
+.user-bubble {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8);
+  box-shadow: 0 3px 12px rgba(124, 111, 216, 0.3);
+  border: 1px solid rgba(107, 95, 200, 0.2);
+}
+
+/* Typing Indicator */
+.typing-indicator span {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8);
+  box-shadow: 0 2px 6px rgba(124, 111, 216, 0.3);
+}
+
+/* Composer Area */
+.composer-area {
+  border-top: 1px solid rgba(124, 111, 216, 0.12);
+}
+
+/* Textarea */
+textarea {
+  border: 1.5px solid rgba(124, 111, 216, 0.2);
+}
+
+textarea:focus {
+  border-color: #7C6FD8;
+  box-shadow: 0 0 0 3px rgba(124, 111, 216, 0.12), 0 3px 12px rgba(124, 111, 216, 0.08);
+}
+
+/* Send Button */
+.send-button {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8, #5B4FB8);
+  box-shadow: 0 4px 16px rgba(124, 111, 216, 0.35);
+}
+
+.send-button:hover:not(:disabled) {
+  box-shadow: 0 10px 30px rgba(124, 111, 216, 0.5);
+}
+
+/* Shortcut Buttons */
+.shortcut-btn-inline {
+  border: 1px solid rgba(124, 111, 216, 0.18);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.shortcut-btn-inline:hover {
+  box-shadow: 0 3px 8px rgba(124, 111, 216, 0.18);
+  border-color: #7C6FD8;
+}
+
+.shortcut-btn-inline .shortcut-text {
+  color: #5B4FB8;
+}
+
+/* Activity button styling removed - uses default shortcut-btn-inline styles */
+
+/* Activity Flow Cards */
+.activity-flow-card {
+  border: 1px solid rgba(124, 111, 216, 0.1);
+}
+
+.category-card {
+  border: 1px solid rgba(124, 111, 216, 0.12);
+}
+
+.category-card:hover {
+  box-shadow: 0 3px 10px rgba(124, 111, 216, 0.12);
+  border-color: #7C6FD8;
+}
+
+.activity-item {
+  border: 1px solid rgba(124, 111, 216, 0.12);
+}
+
+.activity-item:hover {
+  box-shadow: 0 2px 6px rgba(124, 111, 216, 0.1);
+  border-color: #7C6FD8;
+}
+
+.input-field {
+  border: 1px solid rgba(124, 111, 216, 0.18);
+}
+
+.input-field:focus {
+  border-color: #7C6FD8;
+  box-shadow: 0 0 0 2px rgba(124, 111, 216, 0.08);
+}
+
+.btn-primary-action {
+  background: linear-gradient(135deg, #7C6FD8, #6B5FC8);
+  box-shadow: 0 2px 6px rgba(124, 111, 216, 0.2);
+}
+
+.btn-primary-action:hover {
+  box-shadow: 0 3px 10px rgba(124, 111, 216, 0.3);
+}
+
+.btn-secondary-action:hover {
+  border-color: #7C6FD8;
+  color: #7C6FD8;
+}
+
+/* Success Card */
+.success-card {
+  background: linear-gradient(135deg, #E8E5FF, #D4CFFF);
+  border: 1px solid #7C6FD8;
+}
+
+.success-title {
+  color: #5B4FB8;
+}
+
+.success-value {
+  color: #5B4FB8;
+}
+
+/* Mood Flow */
+.mood-flow-cancel-link:hover {
+  color: #ef4444;
+}
+
+/* Font Family Override */
+.chat-widget,
+.chat-widget * {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+
+/* Legend Alignment Fix - Highest Priority */
+.card-legend {
+  display: flex !important;
+  justify-content: center !important;
+  gap: 50px !important;
+  margin-top: 20px !important;
+  margin-bottom: 16px !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+}
+
+.legend-item {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  font-size: 0.9rem !important;
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  height: 20px !important;
+  white-space: nowrap !important;
+}
+
+.legend-item > span:last-child {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+}
+
+.legend-dot {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.legend-dot.steps {
+  background-color: #FF6B7A !important;
+}
+
+.legend-dot.active {
+  background-color: #4ECDC4 !important;
+}

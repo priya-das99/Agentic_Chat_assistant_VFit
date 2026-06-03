@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Calorie Balance Display</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .test-card {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+    .value {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+    }
+    .label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    button {
+      background: #8B7FD8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #7a6dc7;
+    }
+    .console {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-top: 20px;
+      font-family: monospace;
+      font-size: 12px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calorie Balance Display Test</h1>
+  
+  <button onclick="testCalorieDisplay()">Load Test Data</button>
+  
+  <div class="test-card">
+    <h3>Calorie Balance</h3>
+    <div class="label">Target</div>
+    <div class="value" id="calorieTarget">0 kcal</div>
+    
+    <div class="label">Meals</div>
+    <div class="value" id="mealsCalories">0</div>
+    
+    <div class="label">Resting (BMR)</div>
+    <div class="value" id="restingCalories">0</div>
+    
+    <div class="label">Active</div>
+    <div class="value" id="activeCalories">0</div>
+    
+    <div class="label">Balance</div>
+    <div class="value" id="balanceCalories">0</div>
+    
+    <div class="label">Total Steps</div>
+    <div class="value" id="totalSteps">0</div>
+  </div>
+  
+  <div class="console" id="console"></div>
+  
+  <script>
+    function log(message) {
+      const console = document.getElementById('console');
+      console.innerHTML += message + '<br>';
+      console.scrollTop = console.scrollHeight;
+    }
+    
+    function updateCalorieBalance(calorieData) {
+      if (!calorieData) {
+        log('❌ No calorie balance data available');
+        return;
+      }
+      
+      log('✅ Updating calorie balance: ' + JSON.stringify(calorieData));
+      
+      // Update target
+      const target = calorieData.target || 0;
+      document.getElementById('calorieTarget').textContent = `${target} kcal`;
+      
+      // Update breakdown values
+      document.getElementById('mealsCalories').textContent = calorieData.meals || 0;
+      document.getElementById('restingCalories').textContent = calorieData.resting_bmr || 0;
+      document.getElementById('activeCalories').textContent = calorieData.active_calories || 0;
+      document.getElementById('balanceCalories').textContent = calorieData.balance || 0;
+      document.getElementById('totalSteps').textContent = (calorieData.total_steps || 0).toLocaleString();
+      
+      log('✅ Display updated successfully');
+    }
+    
+    function testCalorieDisplay() {
+      log('🔄 Loading test data...');
+      
+      // Simulate backend response
+      const testData = {
+        calorie_balance: {
+          target: 1862,
+          meals: 0,
+          resting_bmr: 1461,
+          active_calories: 401,
+          balance: -1862,
+          total_steps: 5200,
+          date: "2026-06-02"
+        }
+      };
+      
+      log('📦 Test data loaded');
+      updateCalorieBalance(testData.calorie_balance);
+    }
+    
+    // Auto-load test data on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      log('🚀 Page loaded');
+      log('Click "Load Test Data" button to test display');
+    });
+  </script>
+</body>
+</html>

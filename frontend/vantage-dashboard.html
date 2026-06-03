@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentMood - Wellness Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/vantage-dashboard.css" />
+  <link rel="stylesheet" href="/static/chat.css" />
+  <link rel="stylesheet" href="/static/reminder-cards.css" />
+  <link rel="stylesheet" href="/static/chat-vantage-theme.css" />
+</head>
+<body data-user-id="1">
+  <!-- Header Container with Shadow -->
+  <header class="header-container">
+    <!-- Top Navigation Bar -->
+    <nav class="top-navbar">
+      <div class="nav-container">
+        <div class="nav-left">
+          <img src="/static/vantage-logo.png" alt="Logo" class="nav-logo" onerror="this.style.display='none'" />
+          <span class="nav-brand"><span class="brand-vantage">VANTAGE</span><span class="brand-circle">CIRCLE</span></span>
+        </div>
+        <div class="nav-right">
+          <div class="vantage-points">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="points-label">Vantage Points</span>
+            <span class="points-value" id="userPoints">0</span>
+          </div>
+          <button class="profile-avatar" aria-label="Profile">
+            <img src="https://ui-avatars.com/api/?name=User&background=8B7FD8&color=fff" alt="Profile" />
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Primary Tab Navigation -->
+    <div class="tab-navigation">
+      <div class="nav-container">
+        <div class="tab-pills">
+          <button class="tab-pill active" data-tab="activity">My Activity</button>
+          <button class="tab-pill" data-tab="challenges">Challenges</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-container">
+      
+      <!-- My Activity Tab Content -->
+      <div id="activityContent" class="tab-content active">
+      
+      <!-- Hero Banner Carousel -->
+      <div class="hero-banner-carousel">
+        <button class="carousel-nav prev" id="carouselPrev" aria-label="Previous slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        
+        <div class="carousel-container">
+          <div class="carousel-track" id="carouselTrack">
+            <!-- Slide 1 -->
+            <div class="carousel-slide active">
+              <div class="slide-content slide-image-only">
+                <img src="/static/images/img1.png" alt="Wellness Slide 1" class="carousel-full-image" />
+              </div>
+            </div>
+            
+            <!-- Slide 2 -->
+            <div class="carousel-slide">
+              <div class="slide-content slide-image-only">
+                <img src="/static/images/img2.png" alt="Wellness Slide 2" class="carousel-full-image" />
+              </div>
+            </div>
+            
+            <!-- Slide 3 -->
+            <div class="carousel-slide">
+              <div class="slide-content slide-image-only">
+                <img src="/static/images/img3.png" alt="Wellness Slide 3" class="carousel-full-image" />
+              </div>
+            </div>
+            
+            <!-- Slide 4 -->
+            <div class="carousel-slide">
+              <div class="slide-content slide-image-only">
+                <img src="/static/images/img4.png" alt="Wellness Slide 4" class="carousel-full-image" />
+              </div>
+            </div>
+            
+            <!-- Slide 5 -->
+            <div class="carousel-slide">
+              <div class="slide-content slide-image-only">
+                <img src="/static/images/img5.png" alt="Wellness Slide 5" class="carousel-full-image" />
+              </div>
+            </div>
+          </div>
+          
+          <!-- Carousel Indicators -->
+          <div class="carousel-indicators" id="carouselIndicators">
+            <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+            <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+            <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+            <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+            <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
+          </div>
+        </div>
+        
+        <button class="carousel-nav next" id="carouselNext" aria-label="Next slide">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Date Selector -->
+      <div class="date-selector-wrapper">
+        <button class="date-nav-btn prev" id="datePrev" aria-label="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="date-selector" id="dateSelector">
+          <!-- Date cards will be generated here -->
+        </div>
+        <button class="date-nav-btn next" id="dateNext" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="today-label" id="todayLabel">Today</div>
+
+      <!-- Dashboard Cards Grid -->
+      <div class="dashboard-grid">
+        
+        <!-- LEFT COLUMN -->
+        <div class="dashboard-left-column">
+          
+          <!-- Activity Summary Card -->
+          <div class="dashboard-card activity-summary-card">
+            <div class="card-content">
+              <div class="summary-stats">
+                <div class="stat-item">
+                  <div class="stat-icon">👟</div>
+                  <div class="stat-info">
+                    <div class="stat-label">Steps<br>Covered</div>
+                    <div class="stat-value" id="stepsValue">--</div>
+                  </div>
+                </div>
+                <div class="progress-ring-container">
+                  <svg class="progress-ring" width="90" height="90" viewBox="0 0 90 90">
+                    <!-- Background circles -->
+                    <circle class="progress-ring-bg" cx="45" cy="45" r="35" />
+                    <circle class="progress-ring-bg" cx="45" cy="45" r="22" />
+                    
+                    <!-- Steps progress (outer circle - pink) -->
+                    <circle class="progress-ring-steps" cx="45" cy="45" r="35" id="stepsRing" />
+                    
+                    <!-- Active minutes progress (inner circle - teal) -->
+                    <circle class="progress-ring-active" cx="45" cy="45" r="22" id="activeRing" />
+                  </svg>
+                  <div class="ring-center-value" id="ringCenterValue">--</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-icon">⚡</div>
+                  <div class="stat-info">
+                    <div class="stat-label">Active<br>Minutes</div>
+                    <div class="stat-value" id="activeMinutesValue">--</div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-legend">
+                <div class="legend-item">
+                  <span class="legend-dot steps"></span>
+                  <span>Steps Covered</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot active"></span>
+                  <span>Active Minutes</span>
+                </div>
+              </div>
+             
+              <div class="card-target">Target: 10000 Steps | 32 Active Minutes</div>
+            </div>
+          </div>
+
+          <!-- Calories Card -->
+          <div class="dashboard-card calories-card">
+            <div class="card-header">
+              <h3>Calories</h3>
+            </div>
+            <div class="calories-target">
+              <div class="target-label">Calorie Target for Meals:</div>
+              <div class="target-value" id="calorieTarget">-- kcal</div>
+            </div>
+            <div class="calories-breakdown">
+              <div class="calorie-item">
+                <div class="calorie-label" style="color: #4ECDC4;">Meals</div>
+                <div class="calorie-value" id="mealsCalories">--</div>
+                <div class="calorie-unit">kcals</div>
+              </div>
+              <div class="calorie-separator">-</div>
+              <div class="calorie-item">
+                <div class="calorie-label" style="color: #FF9F40;">Resting</div>
+                <div class="calorie-value" id="restingCalories">--</div>
+                <div class="calorie-unit">kcals</div>
+              </div>
+              <div class="calorie-separator">-</div>
+              <div class="calorie-item">
+                <div class="calorie-label" style="color: #FF6B7A;">Active</div>
+                <div class="calorie-value" id="activeCalories">--</div>
+                <div class="calorie-unit">kcals</div>
+              </div>
+              <div class="calorie-separator">=</div>
+              <div class="calorie-item">
+                <div class="calorie-label" style="color: var(--text-secondary);">Balance</div>
+                <div class="calorie-value" id="balanceCalories">--</div>
+                <div class="calorie-unit">kcals</div>
+              </div>
+            </div>
+            <div class="calorie-status">
+              Loading calorie balance...
+            </div>
+          </div>
+
+          <!-- Weekly Suggestions (Compact Square) -->
+          <div class="dashboard-card weekly-suggestions-compact-square">
+            <div class="card-header">
+              <h3>Weekly suggestions</h3>
+            </div>
+            
+            <!-- Weekly Snapshot Card -->
+            <div class="weekly-snapshot-card-compact" id="weeklySnapshotCardCompact">
+              <div class="snapshot-header-compact">
+                <div class="snapshot-date-range" id="snapshotDateRange">--</div>
+                <div class="snapshot-points" id="snapshotPoints">0 pts</div>
+              </div>
+              <div class="snapshot-stats-inline">
+                <div class="snapshot-stat-inline">
+                  <span class="stat-inline-value" id="weeklyMoodLogs">0</span>
+                  <span class="stat-inline-label"><span class="stat-emoji">😊</span> Mood</span>
+                </div>
+                <div class="snapshot-stat-inline">
+                  <span class="stat-inline-value" id="weeklyActivitySessions">0</span>
+                  <span class="stat-inline-label"><span class="stat-emoji">💪</span> Activities</span>
+                </div>
+                <div class="snapshot-stat-inline">
+                  <span class="stat-inline-value" id="weeklyExerciseMinutes">0</span>
+                  <span class="stat-inline-label"><span class="stat-emoji">⏱️</span> Minutes</span>
+                </div>
+                <div class="snapshot-stat-inline">
+                  <span class="stat-inline-value" id="weeklyChallenges">0</span>
+                  <span class="stat-inline-label"><span class="stat-emoji">🏆</span> Challenges</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Suggestions Carousel -->
+            <div class="suggestions-carousel-wrapper-compact">
+              <button class="suggestions-nav-btn-compact prev" id="suggestionsPrev" aria-label="Previous suggestion">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              
+              <div class="suggestions-carousel-container-compact">
+                <div class="suggestions-carousel-track" id="suggestionsCarouselTrack">
+                  <!-- Suggestions will be loaded from backend -->
+                </div>
+              </div>
+              
+              <button class="suggestions-nav-btn-compact next" id="suggestionsNext" aria-label="Next suggestion">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Carousel Indicators -->
+            <div class="suggestions-indicators-compact" id="suggestionsIndicators">
+              <!-- Indicators will be generated by JS -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="dashboard-right-column">
+          
+          <!-- Today's Wellness Board -->
+          <div class="dashboard-card wellness-board-card">
+            <div class="card-header">
+              <div>
+                <div class="card-eyebrow">LOGGED TODAY</div>
+                <h3>Today's wellness board</h3>
+              </div>
+              <div class="card-status" id="wellnessStatus">Updated just now</div>
+            </div>
+            <div class="wellness-stats-grid" id="wellnessStatsGrid">
+              <!-- Stats will be populated by JS -->
+              <div class="wellness-stat-card clickable" data-type="mood" onclick="showActivityDetails('mood')">
+                <div class="wellness-stat-icon">😊</div>
+                <div class="wellness-stat-label">Mood check-ins</div>
+                <div class="wellness-stat-value" id="moodCount">0</div>
+                <div class="wellness-stat-subtitle">Entries logged today</div>
+              </div>
+              <div class="wellness-stat-card clickable" data-type="water" onclick="showActivityDetails('water')">
+                <div class="wellness-stat-icon">💧</div>
+                <div class="wellness-stat-label">Water</div>
+                <div class="wellness-stat-value" id="waterCount">0 glasses</div>
+                <div class="wellness-stat-subtitle">Hydration logged today</div>
+              </div>
+              <div class="wellness-stat-card clickable" data-type="sleep" onclick="showActivityDetails('sleep')">
+                <div class="wellness-stat-icon">😴</div>
+                <div class="wellness-stat-label">Sleep</div>
+                <div class="wellness-stat-value" id="sleepValue">No log</div>
+                <div class="wellness-stat-subtitle">Latest sleep entry</div>
+              </div>
+              <div class="wellness-stat-card clickable" data-type="exercise" onclick="showActivityDetails('exercise')">
+                <div class="wellness-stat-icon">🏃</div>
+                <div class="wellness-stat-label">Exercise</div>
+                <div class="wellness-stat-value" id="exerciseValue">0 h</div>
+                <div class="wellness-stat-subtitle" id="exerciseSubtitle">0 sessions today</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>      </div>
+      <!-- End My Activity Tab Content -->
+
+      <!-- Challenges Tab Content -->
+      <div id="challengesContent" class="tab-content">
+        
+        <!-- Hero Banner Carousel -->
+        <div class="hero-banner-carousel">
+          <button class="carousel-nav prev" id="challengesCarouselPrev" aria-label="Previous slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <div class="carousel-container">
+            <div class="carousel-track" id="challengesCarouselTrack">
+              <!-- Slide 1 -->
+              <div class="carousel-slide active">
+                <div class="slide-content slide-image-only">
+                  <img src="/static/images/img1.png" alt="Challenge Slide 1" class="carousel-full-image" />
+                </div>
+              </div>
+              
+              <!-- Slide 2 -->
+              <div class="carousel-slide">
+                <div class="slide-content slide-image-only">
+                  <img src="/static/images/img2.png" alt="Challenge Slide 2" class="carousel-full-image" />
+                </div>
+              </div>
+              
+              <!-- Slide 3 -->
+              <div class="carousel-slide">
+                <div class="slide-content slide-image-only">
+                  <img src="/static/images/img3.png" alt="Challenge Slide 3" class="carousel-full-image" />
+                </div>
+              </div>
+              
+              <!-- Slide 4 -->
+              <div class="carousel-slide">
+                <div class="slide-content slide-image-only">
+                  <img src="/static/images/img4.png" alt="Challenge Slide 4" class="carousel-full-image" />
+                </div>
+              </div>
+              
+              <!-- Slide 5 -->
+              <div class="carousel-slide">
+                <div class="slide-content slide-image-only">
+                  <img src="/static/images/img5.png" alt="Challenge Slide 5" class="carousel-full-image" />
+                </div>
+              </div>
+            </div>
+            
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators" id="challengesCarouselIndicators">
+              <button class="indicator active" data-slide="0" aria-label="Go to slide 1"></button>
+              <button class="indicator" data-slide="1" aria-label="Go to slide 2"></button>
+              <button class="indicator" data-slide="2" aria-label="Go to slide 3"></button>
+              <button class="indicator" data-slide="3" aria-label="Go to slide 4"></button>
+              <button class="indicator" data-slide="4" aria-label="Go to slide 5"></button>
+            </div>
+          </div>
+          
+          <button class="carousel-nav next" id="challengesCarouselNext" aria-label="Next slide">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Challenge Tabs Card (Separate) -->
+        <div class="challenge-tabs-card-separate">
+          <div class="challenge-tabs">
+            <button class="challenge-tab active" data-challenge-tab="ongoing">Ongoing</button>
+            <button class="challenge-tab" data-challenge-tab="upcoming">Upcoming</button>
+            <button class="challenge-tab" data-challenge-tab="past">Past</button>
+          </div>
+        </div>
+
+        <!-- Challenge Content Card (Separate) -->
+        <div class="challenge-content-card-separate">
+          
+          <!-- Ongoing Challenges -->
+          <div id="ongoingChallenges" class="challenge-tab-content active">
+            <div class="challenges-grid" id="ongoingGrid">
+              <div class="challenge-empty-message">
+                <p>There are no Ongoing challenges available.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Challenges -->
+          <div id="upcomingChallenges" class="challenge-tab-content">
+            <div class="challenges-grid" id="upcomingGrid">
+              <div class="challenge-empty-message">
+                <p>There are no Upcoming challenges available.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Past Challenges -->
+          <div id="pastChallenges" class="challenge-tab-content">
+            <div class="challenges-grid" id="pastGrid">
+              <div class="challenge-empty-message">
+                <p>There are no Past challenges available.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- End Challenges Tab Content -->
+
+    </div>
+  </main>
+
+  <!-- Floating Chat Button -->
+  <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="Open chat">
+    <svg class="chat-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
+    </svg>
+    <svg class="close-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <!-- Chat Widget -->
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-container">
+      <header class="chat-header">
+        <div class="chat-heading">
+          <h2>FitCoach Assistant</h2>
+          <p class="header-copy">Your daily wellness companion</p>
+        </div>
+        <div class="header-side">
+          <div class="status-pill" id="statusPill">
+            <span class="status-dot"></span>
+            <span>Connected</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="chat-board" id="chatWindow">
+        <div class="day-marker">Today</div>
+        <div class="message assistant message-enter">
+          <div class="avatar assistant-avatar">A</div>
+          <div class="message-stack">
+            <div class="message-meta">
+              <p class="message-name">FitCoach Assistant</p>
+            </div>
+            <div class="bubble assistant-bubble">
+              <p>Welcome back! Tell me how your body and mind feel today, and I'll help you log it like a supportive fitness coach.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="composer-area">
+        <!-- Quick Action Shortcuts - Inline -->
+        <div class="shortcuts-inline">
+          <span class="shortcuts-label">QUICK LOG:</span>
+          <button class="shortcut-btn-inline" id="logMoodBtn">
+            <span class="shortcut-icon">😊</span>
+            <span class="shortcut-text">Mood</span>
+          </button>
+          <button class="shortcut-btn-inline" data-shortcut="Log water intake">
+            <span class="shortcut-icon">💧</span>
+            <span class="shortcut-text">Water</span>
+          </button>
+          <button class="shortcut-btn-inline" data-shortcut="Log sleep">
+            <span class="shortcut-icon">😴</span>
+            <span class="shortcut-text">Sleep</span>
+          </button>
+          <button class="shortcut-btn-inline shortcut-activity" id="logActivityBtn">
+            <span class="shortcut-icon">🏃</span>
+            <span class="shortcut-text">Activity</span>
+          </button>
+          <button class="shortcut-btn-inline shortcut-meal" id="logMealBtn">
+            <span class="shortcut-icon">🍽️</span>
+            <span class="shortcut-text">Meal</span>
+          </button>
+        </div>
+        
+        <div class="composer-meta">
+          <span>Press Enter to send</span>
+          <span>Shift + Enter for new line</span>
+        </div>
+        <div class="composer-wrapper">
+          <form class="composer" id="chatForm">
+            <label class="composer-input-wrap">
+              <span class="sr-only">Type your message</span>
+              <textarea id="messageInput" rows="1" placeholder="How are you feeling today?"></textarea>
+            </label>
+            <button type="submit" class="send-button" id="sendButton">
+              <span>Send</span>
+            </button>
+          </form>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Activity Details Modal -->
+  <div class="activity-modal-overlay" id="activityModal" onclick="if(event.target===this)closeActivityModal()">
+    <div class="activity-modal">
+      <div class="activity-modal-header">
+        <h3 id="modalTitle">Activity Details</h3>
+        <button class="activity-modal-close" onclick="closeActivityModal()" aria-label="Close">✕</button>
+      </div>
+      <div class="activity-modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="/static/vantage-dashboard.js"></script>
+  <script src="/static/chat.js"></script>
+</body>
+</html>
